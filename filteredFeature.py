@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Jun  7 11:30:26 2019
+Created on Wed Jul 17 22:47:03 2019
 
 @author: PAT
 """
 
 # Import libraries
 from pydub import AudioSegment
-import librosa
 import numpy as np
 import matplotlib.pyplot as plt
 from pydub.utils import get_array_type
@@ -34,17 +33,6 @@ def segment(left_channel, right_channel):
     
     start = 0
 
-    vuL = []
-    vuR = []
-    drL = []
-    drR = []
-    peak_dbL = []
-    peak_dbR = []
-    rmsL = []
-    rmsR = []
-    pan = []
-    xcor = []
-    box = []
     rms_filterL = []
     rms_filterR = []
     pan_filter = []
@@ -70,18 +58,6 @@ def segment(left_channel, right_channel):
 #        print(left_channel[start:end])
             
         print(i)
-        
-        vuL.append(vu_meter(segmentedL))
-        vuR.append(vu_meter(segmentedL))
-        drL.append(dynamicRange(segmentedR))
-        drR.append(dynamicRange(segmentedR))
-        peak_dbL.append(PPM(segmentedL))
-        peak_dbR.append(PPM(segmentedL))
-        rmsL.append(rms(segmentedL))
-        rmsR.append(rms(segmentedR))
-        pan.append(panning(segmentedL, segmentedR))
-        xcor.append(pearson_def(segmentedL, segmentedR))
-        box.append(boxcounting(segmentedL, segmentedR, scale))
         
         filteredSpeechL = third_octave(segmentedL)
         filteredSpeechR = third_octave(segmentedR)
@@ -110,7 +86,7 @@ def segment(left_channel, right_channel):
 #    seg_length = 4096
 #    print([left_channel[x:x+seg_length] for x in range(0,len(left_channel),seg_length)][0])
 #    return zip(peak_dbL, peak_dbR, drL, drR, vuL, vuR, rmsL, rmsR, pan, xcor, box, rms_filterL, rms_filterR, pan_filter, box_filter, xcorr_filter)
-    return zip(peak_dbL, peak_dbR, drL, drR, vuL, vuR, rmsL, rmsR, pan, xcor, box, all_filter)
+    return all_filter
 
 def main():
 # =============================================================================
@@ -266,23 +242,11 @@ def main():
                     # write to individual csv
                             
                     print('========== Extracting ===========')
-                    fea_name = ['peak_dbL', 'peak_dbR', 'drL', 'drR', 'vuL', 'vuR', 'rmsL', 'rmsR', 'pan', 'xcor', 'box']
-                    zipped = segment(left_channel, right_channel) # by array
-                    unzipped = list(zip(*zipped))
-
+                            
+                    all_filter = segment(left_channel, right_channel)
                     dirname = 'D:/Pat/Germany Intern/dataset/' + dj_name + '/' + set_music[i] + '/' + music_name + '/'
                     os.makedirs(dirname, exist_ok = True)
-                    for j in range(len(fea_name)):
-                        with open(dirname + music_name + ' ' + str(fea_name[j]) + '.csv', 'w', newline = '') as fp:
-                            a = csv.writer(fp, delimiter = ',')
-                            a.writerows(map(lambda x: [x], unzipped[j]))
-                            
-                    all_filter = unzipped[11]
-#            
                     fea_name_filter = ['rms_filter L', 'rms_filter R', 'pan_filter', 'box_filter', 'xcorr_filter']
-                    header = []
-                    for x in range(27):
-                        header.append('band ' + str(x+1))
                     
                     for x in range(len(all_filter)):
             #            print(all_filter[x])
