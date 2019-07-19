@@ -92,8 +92,8 @@ def main():
 # =============================================================================
 # run by music
 # =============================================================================
-#    files_path = 'D:/Pat/Germany Intern/Training/4. Armin van Buuren/3minNorm/Tomorrowland (2013)/'
-#    file_name = 'Apache'
+#    files_path = 'D:/Pat/Germany Intern/Training/6. Tiesto/3minNorm/UMF Miami (2018)/'
+#    file_name = 'Secrets'
 #    file_type = '.mp3'
 #    fullfilename = files_path + file_name + file_type
 #    set_mu_path = os.path.basename(os.path.split(os.path.dirname(files_path))[-1])
@@ -108,38 +108,30 @@ def main():
 #        split_sound = sound.split_to_mono()
 #        left_channel = split_sound[0]
 #        right_channel = split_sound[1]
-#               
+              
 #        print('Extracting')
-##        fea_name = ['peak_dbL', 'peak_dbR', 'drL', 'drR', 'vuL', 'vuR', 'rmsL', 'rmsR', 'pan', 'xcor', 'box', 'rms_filter L', 'rms_filter R', 'pan_filter', 'box_filter', 'xcorr_filter']
-#        fea_name = ['peak_dbL', 'peak_dbR', 'drL', 'drR', 'vuL', 'vuR', 'rmsL', 'rmsR', 'pan', 'xcor', 'box']
-#        zipped = segment(left_channel, right_channel) # by array
-#        unzipped = list(zip(*zipped))
-#        
+    
+#        all_filter = segment(left_channel, right_channel)
 #        dirname = 'D:/Pat/Germany Intern/dataset/' + dj_name + '/' + set_mu_path + '/' + file_name + '/'
 #        os.makedirs(dirname, exist_ok = True)
-#        for i in range(11):
-#            with open(dirname + file_name + ' ' + str(fea_name[i]) + '.csv', 'w', newline = '') as fp:
-#                a = csv.writer(fp, delimiter = ',')
-#                a.writerows(map(lambda x: [x], unzipped[i]))
-#        
-#        all_filter = unzipped[11]
+       
 #        fea_name_filter = ['rms_filter L', 'rms_filter R', 'pan_filter', 'box_filter', 'xcorr_filter']
 #        header = []
 #        for i in range(27):
 #            header.append('band ' + str(i+1))
-#        
+       
 #        for i in range(len(all_filter)):
-##            print(all_filter[i])
+# #            print(all_filter[i])
 #            for j in range(len(all_filter[i])):  # 5 features
 #                #print(fea_name_filter[j])
 #                #print(all_filter[i][j])
-##                for k in range(len(all_filter[i][j])): # 27 values
-##                    print(all_filter[i][j][k])
+# #                for k in range(len(all_filter[i][j])): # 27 values
+# #                    print(all_filter[i][j][k])
 #                with open(dirname + file_name + ' ' + str(fea_name_filter[j]) + '.csv', 'a', newline='') as csvFile:
-##                    file_is_empty = os.stat(dirname + file_name + ' ' + str(fea_name_filter[j]) + '.csv').st_size == 0
+# #                    file_is_empty = os.stat(dirname + file_name + ' ' + str(fea_name_filter[j]) + '.csv').st_size == 0
 #                    writer = csv.writer(csvFile, delimiter=',')
-##                    if file_is_empty:
-##                        writer.writerow(l for l in header)
+# #                    if file_is_empty:
+# #                        writer.writerow(l for l in header)
 #                    writer.writerow(all_filter[i][j])
 #                csvFile.close()
     
@@ -147,14 +139,14 @@ def main():
 # run by set music
 # =============================================================================
     
-#    set_music_path = 'D:/Pat/Germany Intern/Training/4. Armin van Buuren/3minNorm/UMF Miami (2019)'
+#    set_music_path = 'D:/Pat/Germany Intern/Training/6. Tiesto/3minNorm/UMF Miami (2018)'
 #    dj_name = os.path.basename(os.path.split(os.path.dirname(set_music_path))[-2])
 #    set_music_name = os.path.basename(set_music_path)
 #    print('set_music_name =', set_music_name)
 #    set_music = os.listdir(set_music_path)
 ##    print(set_music)
 ##    for music_path in set_music:
-#    i = 0
+#    i = 10
 #    while i < len(set_music):
 ##        print(set_music[i])
 #        full_mu_path = set_music_path + '/' + set_music[i]
@@ -173,19 +165,11 @@ def main():
 #            right_channel = split_sound[1]
 #            
 #            print('========== Extracting ===========')
-#            fea_name = ['peak_dbL', 'peak_dbR', 'drL', 'drR', 'vuL', 'vuR', 'rmsL', 'rmsR', 'pan', 'xcor', 'box']
-#            zipped = segment(left_channel, right_channel) 
-#            unzipped = list(zip(*zipped))
-#    
+#            
+#            all_filter = segment(left_channel, right_channel)
 #            dirname = 'D:/Pat/Germany Intern/dataset/' + dj_name + '/' + set_music_name + '/' + music_name + '/'
 #            os.makedirs(dirname, exist_ok = True)
-#            for j in range(11):
-#                with open(dirname + music_name + ' ' + str(fea_name[j]) + '.csv', 'w', newline = '') as fp:
-#                    a = csv.writer(fp, delimiter = ',')
-#                    a.writerows(map(lambda x: [x], unzipped[j]))
-#                    
-#            all_filter = unzipped[11]
-#            
+#      
 #            fea_name_filter = ['rms_filter L', 'rms_filter R', 'pan_filter', 'box_filter', 'xcorr_filter']
 #            header = []
 #            for x in range(27):
